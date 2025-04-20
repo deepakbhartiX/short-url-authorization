@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home page</title>
+</head>
+
+<body>
+    <h1>Url Shortener</h1>
+    <% if (locals.id) { %>
+        <p>
+            URL Generated:
+            <a href="http://localhost:8001/url/<%= id %>"> http://localhost:8001/url/<%= id %></a>
+        </p>
+        <% } %>
+            <div>
+                <form action="/url" method="post">
+                    <label>Enter you Original URL </label>
+                    <input type="text" name="url" placeholder="https:example.com">
+                    <button type="submit">Generate</button>
+                </form>
+
+            </div>
+
+            <div>
+                <% if (locals.urls) { %>
+                    <table>
+
+                        <thead>
+
+                            <th>S. NO</th>
+                            <th>ShortID</th>
+                            <th>Redirect</th>
+                            <th>Clicks </th>
+                            <% if (urls[0].createdBy.username) { %>
+                              <th>Username</th>
+                            <% } %>
+                    
+                           
+                        </thead>
+
+                        <tbody>
+                         
+                            <% urls.forEach((url, index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= url.shortid %>
+                                    </td>
+                                    <td>
+                                        <%= url.redirectURL %>
+                                    </td>
+                                    <td>
+                                        <%= url.vistHistory.length %>
+                                    </td>
+
+                                    <td>
+                                        <%= url.createdBy.username %>
+                                    </td>
+
+                                 
+
+                                   
+                                </tr>
+                                <% }) %>
+
+                                 
+
+                                          
+                        </tbody>
+                    </table>
+
+
+
+                    <% } %>
+
+            </div>
+</body>
+
+</html>
